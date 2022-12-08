@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title', 'Blog')</title>
-    {{-- The asset function will automatically look into the public folder, for this path. --}}
+    {{-- The asset helper function will automatically look into the public folder, for this path. --}}
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
 </head>
 <body>
@@ -13,6 +13,7 @@
     <ul class="nav">
         <li><a class="{{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a></li>
         <li><a class="{{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">About</a></li>
+        <li><a class="{{ request()->routeIs('posts.create') ? 'active' : '' }}" href="{{ route('posts.create') }}">Create Post</a></li>
     </ul>
 
     <div class="main">
