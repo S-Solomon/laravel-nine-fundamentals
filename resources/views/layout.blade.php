@@ -16,15 +16,8 @@
         <li><a class="{{ request()->routeIs('posts.create') ? 'active' : '' }}" href="{{ route('posts.create') }}">Create Post</a></li>
     </ul>
 
-    @if($errors->any())
-        <div class="flash-error">
-            <b>There are some errors in your submission:</b>
-            @foreach($errors->all() as $error)
-                <p>{{ $error }}</p>
-            @endforeach    
-        </div>
-        
-    @endif    
+
+    @includeWhen($errors->any(), '_errors')
 
     @if(session('success'))
         <div class="flash-success">
