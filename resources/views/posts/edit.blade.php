@@ -10,13 +10,13 @@
     @method('PUT')
     {{-- <input type="hidden" name="_method" value="PUT"> --}}
     <label for="title">Title</label>
-    <input class="@error('title') error-border @enderror" type="text" name="title" value="{{ old('title') }}">
+    <input class="@error('title') error-border @enderror" type="text" name="title" value="{{ old('title', $post->title) }}">
     @error('title')
         <div class="error">{{ $message }}</div>
     @enderror
 
     <label for="description">Description</label>
-    <textarea class="@error('description') error-border @enderror" name="description">{{ old('description') }}</textarea>
+    <textarea class="@error('description') error-border @enderror" name="description">{{ old('description', $post->description) }}</textarea>
     @error('description')
         <div class="error">{{ $message }}</div>
     @enderror
