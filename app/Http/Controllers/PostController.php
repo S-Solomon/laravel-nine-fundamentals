@@ -27,21 +27,15 @@ class PostController extends Controller
      */
     public function store(PostFormRequest $request)
     {
-        $request->validated();
+        $validated = $request->validated();
 
-        $post = new Post();
-        
-        $post->title = $request->input('title');
-        $post->description = $request->input('description');
-
-        $post->save();
+        $post = Post::create($validated);
 
         return redirect()
             ->route('posts.show', [$post])
             ->with('success', 'Post is submitted! Title: ' .
-            $post->title . ' Description: ' .
-            $post->description);
-    
+                $post->title . ' Description: ' .
+                $post->description);
     }
 
     /**
@@ -81,17 +75,13 @@ class PostController extends Controller
      */
     public function update(PostFormRequest $request, Post $post)
     {
-        $request->validated();
+        $validated = $request->validated();
 
-        $post->title = $request->input('title');
-        $post->description = $request->input('description');
-
-        $post->save();
+        $post->update($validated);
 
         return redirect()
             ->route('posts.show', [$post]) // It seems we're passing the whole post object in here, but in reality the id gets extracted 
             ->with('success', 'Post is updated');
-
     }
 
     /**
@@ -106,6 +96,6 @@ class PostController extends Controller
 
         return redirect()
             ->route('home')
-            ->with('success', 'Post has been deleted' );
-    }        
+            ->with('success', 'Post has been deleted');
+    }
 }
