@@ -31,13 +31,38 @@ class AuthController extends Controller
             ->with('success', 'Your account has been created! You can now login.');
     }
     
-    public function login()
+    public function login(Request $request)
     {
-        
+        if ($request->isMethod('get')) {
+            return view('auth.login');
+        }
+
+        $credentials = $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        // The attempt method will check if the provided email and password match in the users table
+        // The Auth facade will instruct the authentication system to create a new user session and establish a connection with the server
+        if (Auth::attempt($credentials)) {
+            return redirect()
+                ->route('home')
+                ->with('success', 'You are logged in!');
+        }
+
+        return redirect()
+            ->route('login')
+            ->withErrors('Provided login information is not valid.');
     }
     
-    public function logout()
+    public function logout(Request $request)
     {
-        
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()
+            ->route('home')
+            ->with('success', 'You are logged out.');
     }
 }
