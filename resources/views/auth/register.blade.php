@@ -43,3 +43,4 @@
         If you already have an account <a href="{{ route('login') }}">login</a>.
 
     </form>
+@endsection    
