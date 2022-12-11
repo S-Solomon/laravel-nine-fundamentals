@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             $table->foreignId('user_id')
+                ->nullable()
                 ->constrained() // this method will assume which table and column are supposed to be referenced
                 ->onDelete('cascade');
         });
