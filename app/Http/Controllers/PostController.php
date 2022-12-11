@@ -60,7 +60,10 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-
+        //check if the user has a permission to update this specific post object
+        // if the logged in user is not the owner of this post, the authorize method will return a 403 HTTP status code
+        $this->authorize('update', $post);
+        
         return view('posts.edit', [
             'post' => $post
         ]);
@@ -75,6 +78,8 @@ class PostController extends Controller
      */
     public function update(PostFormRequest $request, Post $post)
     {
+        $this->authorize('update', $post);
+
         $validated = $request->validated();
 
         $post->update($validated);
@@ -92,6 +97,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $this->authorize('delete', $post);
+
         $post->delete();
 
         return redirect()
