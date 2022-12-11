@@ -16,6 +16,7 @@
                     Delete Post
                 </button>
             </form>
+            <small>Posted by <b>{{ $post->user->name }}</b></small>
         </div>
     </div>
 @endsection

@@ -29,7 +29,7 @@ class PostController extends Controller
     {
         $validated = $request->validated();
 
-        $post = Post::create($validated);
+        $post = $request->user()->posts()->create($validated);
 
         return redirect()
             ->route('posts.show', [$post])
