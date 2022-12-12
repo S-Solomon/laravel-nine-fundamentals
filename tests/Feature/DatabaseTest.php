@@ -7,6 +7,7 @@ use App\Models\User;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class DatabaseTest extends TestCase
@@ -32,5 +33,20 @@ class DatabaseTest extends TestCase
         $this->assertDatabaseHas('posts', [
             'user_id' => $user->id,
         ]);    
+    }
+
+    public function test_the_authentication()
+    {
+        $user = User::factory()->create([
+            'password' => Hash::make('abc123'),
+        ]);
+
+        // Simulating a submission of the login form
+        $this->post('/login', [
+            'email' => $user->email,
+            'password' => 'abc123'
+        ]);
+
+        $this->assertAuthenticated();
     }
 }
