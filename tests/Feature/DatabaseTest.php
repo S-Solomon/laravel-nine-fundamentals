@@ -15,11 +15,8 @@ class DatabaseTest extends TestCase
     
     public function test_the_post_model()
     {
-        Post::create([
-            'title' => 'Hello',
-            'description' => 'Hello there'
-        ]);
+        Post::factory()->count(3)->create();
 
-        $this->assertDatabaseCount('posts', 1);
+        $this->assertDatabaseCount('posts', 3);
     }
 }
